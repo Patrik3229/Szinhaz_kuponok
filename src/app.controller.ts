@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
 import * as mysql from 'mysql2';
 import { AppService } from './app.service';
 import { Coupon } from './Coupon';
+import e, { Response } from 'express';
 
 const conn = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
@@ -17,8 +18,9 @@ export class AppController {
 
   @Get()
   @Render('index')
-  index() {
-    return { message: 'Welcome to the homepage' };
+  async index() {
+    const [adatok] = await conn.execute('select id, title, percentage, code FROM kuponok');
+    return {message: 'Welcome to the homepage', title: 'Current coupons', kuponok: adatok };
   }
 
   @Get('/newCoupon')
@@ -27,7 +29,8 @@ export class AppController {
     return { title: 'Add a new Coupon', error: '' };
   }
   @Post('/newCoupon')
-  async ujGyerek(@Body() coupon: Coupon) {
+  @Render('index')
+  async ujGyerek(@Body() coupon: Coupon, @Res() res: Response) {
     const title = coupon.title;
     const percentage = coupon.percentage;
     const code = coupon.code;
@@ -36,8 +39,9 @@ export class AppController {
         'INSERT INTO kuponok (title, percentage, code) VALUES (?, ?, ?)',
         [title, percentage, code],
       );
+  
       console.log(adatok);
-      return {};
+      res.redirect('/');
     }
     else {
       console.log("-------------");

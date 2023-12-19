@@ -23,18 +23,18 @@
             </ul>
         </nav>
         <form action="" method="post">
-            <label class="form-control">
+            <label>
                 <b>Title:</b> <br>
-                <input type="text" name="title"><br>
-            </label>
-            <label class="form-control">
+                <input class="form-control" type="text" name="title"><br>
+            </label><br>
+            <label>
                 <b>Percentage?</b> <br>
-                <input type="number" name="percentage" max="100" min="0"><br>
-            </label>
-            <label class="form-control">
+                <input class="form-control" type="number" name="percentage" max="100" min="0"><br>
+            </label><br>
+            <label>
                 <b>Code?</b> <br>
-                <input type="text" name="code"><br>
-            </label>
+                <input class="form-control" type="text" name="code"><br>
+            </label><br>
             <input type="submit" value="Add New Coupon" class="btn btn-success">
         </form>
         <p><%= error %></p>
