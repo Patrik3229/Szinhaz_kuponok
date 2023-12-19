@@ -22,6 +22,23 @@
                 </li>
             </ul>
         </nav>
+        <form action="" method="post">
+            <label class="form-control">
+                <b>Title:</b> <br>
+                <input type="text" name="title"><br>
+            </label>
+            <label class="form-control">
+                <b>Percentage?</b> <br>
+                <input type="number" name="percentage" max="100" min="0"><br>
+            </label>
+            <label class="form-control">
+                <b>Code?</b> <br>
+                <input type="text" name="code"><br>
+            </label>
+            <input type="submit" value="Add New Coupon" class="btn btn-success">
+        </form>
+        <p><%= error %></p>
     </div>
+    
 </body>
 </html>
